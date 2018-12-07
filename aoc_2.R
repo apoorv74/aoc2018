@@ -3,7 +3,7 @@ library(testthat)
 library(rvest)
 library(dplyr)
 
-code_input <- readLines("aoc_2_data.txt")
+code_input <- readLines("data/aoc_2_data.txt")
 
 page_link <- "https://adventofcode.com/2018/day/2"
 
