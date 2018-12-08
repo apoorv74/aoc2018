@@ -35,8 +35,9 @@ no_intersection <- table(all_box_ids) %>% data.frame() %>% filter(Freq==1)
 
 check_for_uniquness <- function(box_details){
   box_ids <- box_details$box_id
-  box_check <- box_ids[!box_ids %in% no_intersection$all_box_ids]
-  return(length(box_check))
+  # box_check <- box_ids[!box_ids %in% no_intersection$all_box_ids]
+  box_diff_length <- length(base::setdiff(box_ids,no_intersection$all_box_ids))
+  return(box_diff_length)
 }
 
 y <- lapply(x, check_for_uniquness) %>% unlist()
