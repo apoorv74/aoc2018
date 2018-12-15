@@ -43,23 +43,30 @@ check_prerequisite <- function(node_to_check, nodes_till_now, input_df){
 
 node_list <- c()
 gate_list <- c()
+available_gates <- c()
 for(i in 1:nrow(get_all_steps)){
 current_gate <- get_all_steps$s1[i]
 if(!current_gate %in% node_list){
-gate_list <- c(gate_list, current_gate)
+gate_list <- c(gate_list, current_gate, available_gates) %>% sort()
 while(length(gate_list)>0){
   current_step <- gate_list[1]
+  # current_step <- "Y"
+  current_step <- "L"
   all_gates <- get_all_gates(current_step,get_all_steps)
   if(length(all_gates)>0){
-    preq_result <- lapply(all_gates, check_prerequisite, c(current_step,node_list),get_all_steps) %>% unlist()  
+    preq_result <- lapply(all_gates, check_prerequisite, c(gate_list,node_list),get_all_steps) %>% unlist()  
     gate_list <- c(gate_list, all_gates[preq_result]) %>% sort()
     move_ahead <- which(preq_result == TRUE)
+    # print(move_ahead)
+    print(all_gates[preq_result])
   }
   if(length(move_ahead)>0){
     node_list <- c(node_list, current_step)
+    # print(node_list)
     gate_list <- gate_list[(!gate_list %in% node_list)]
   } else {
-    gate_list <- c()
+    available_gates <- c(available_gates,current_step)
+    gate_list <- gate_list[(!gate_list %in% current_step)]
   }
   
 }

@@ -26,40 +26,43 @@ func main() {
         }
     }
 
-    answer := ""
-    for ; len(done) > 0 ; {
-        temp := make([]rune,len(done))
-        copy(temp,done)
-        sort.Sort(runes(temp))
-        x := temp[0]
-        for i := 0; i < len(done); i++ {
-            if(done[i] == x){
-                done = append(done[:i], done[i+1:]...)
-            }
-        }
-        answer = answer + string(x)
-        for _,v := range instructions[x] {
-            parents[v] = parents[v] - 1
-            if(parents[v] == 0){
-                done = append(done,v)
-            }
-        }
-    }
-
-    fmt.Println(answer)
-
-
+fmt.Println(len(done))
 }
 
-type runes []rune
+//     answer := ""
+//     for ; len(done) > 0 ; {
+//         temp := make([]rune,len(done))
+//         copy(temp,done)
+//         sort.Sort(runes(temp))
+//         x := temp[0]
+//         for i := 0; i < len(done); i++ {
+//             if(done[i] == x){
+//                 done = append(done[:i], done[i+1:]...)
+//             }
+//         }
+//         answer = answer + string(x)
+//         for _,v := range instructions[x] {
+//             parents[v] = parents[v] - 1
+//             if(parents[v] == 0){
+//                 done = append(done,v)
+//             }
+//         }
+//     }
 
-func (s runes) Len() int {
-    return len(s)
-}
+//     fmt.Println(answer)
 
-func (s runes) Swap(i, j int) {
-    s[i], s[j] = s[j], s[i]
-}
-func (s runes) Less(i, j int) bool {
-    return s[i] < s[j]
-}
+
+// }
+
+// type runes []rune
+
+// func (s runes) Len() int {
+//     return len(s)
+// }
+
+// func (s runes) Swap(i, j int) {
+//     s[i], s[j] = s[j], s[i]
+// }
+// func (s runes) Less(i, j int) bool {
+//     return s[i] < s[j]
+// }
